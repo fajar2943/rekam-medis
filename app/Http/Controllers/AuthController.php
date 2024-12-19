@@ -26,14 +26,15 @@ class AuthController extends Controller
     function register(Request $request) {
         $request->validate([
             'name' => 'required|max:50',
-            'email' => 'required|email|max:50',
+            'email' => 'required|unique:users|email|max:50',
             'phone' => 'required|max:50',
-            'id_number' => 'required|max:100',
+            'id_number' => 'required|unique:users|max:100',
             'address' => 'required|max:255',
             'password' => 'required|max:50|min:8',
             'confirm_password' => 'required|max:50|min:8|same:password',
         ]);
-        
+
+        $request['rm'] = setRm();
         $user = User::create($request->all());
         Auth::login($user);
         return redirect('/appointment');

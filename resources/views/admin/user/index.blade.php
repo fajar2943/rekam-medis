@@ -318,17 +318,6 @@
                             </div>
                             <div class="row g-3 mb-3">
                                 <div class="col-sm-12">
-                                    <label for="rm" class="form-label">No.Rekam Medis</label>
-                                    <input type="text" name="rm" value="{{ old('rm') }}"
-                                        class="form-control @error('rm') is-invalid @enderror"
-                                        id="rm" placeholder="Optional">
-                                    @error('rm')
-                                        <div class="invalid-feedback">{{ $message }}</div>                                        
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="row g-3 mb-3">
-                                <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="address">Address</label>
                                         <textarea name="address" class="form-control @error('address') is-invalid @enderror" id="address" rows="2">{{old('address')}}</textarea>

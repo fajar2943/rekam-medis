@@ -16,6 +16,7 @@ class UserController extends Controller
 
     public function store(Request $request){
         $this->_validation($request);
+        $request['rm'] = $request->role == 'patient' ? setRm() : null;
         User::create($request->only('name', 'email', 'phone', 'id_number', 'rm', 'role', 'address', 'password'));
         return back()->with('success', 'Data created successfully');
     }
@@ -23,7 +24,7 @@ class UserController extends Controller
     public function update(Request $request, User $user){
         $request['id'] = $user->id;
         $this->_validation($request);
-        $user->update($request->only('name', 'email', 'phone', 'id_number', 'rm', 'role', 'address'));
+        $user->update($request->only('name', 'email', 'phone', 'id_number', 'role', 'address'));
         return back()->with('success', 'Data updated successfully');
     }
 
@@ -35,12 +36,12 @@ class UserController extends Controller
     private function _validation(Request $request){
         return $request->validate([
             'name' => 'required|max:50',
-            'email' => 'required|email|max:50',
+            'email' => 'required|unique:users|email|max:50',
             'phone' => 'required|max:50',
-            'id_number' => 'required|max:50',
-            'rm' => 'max:50',
+            'id_number' => 'required|unique:users|max:50',
             'role' => 'required|max:50',
             'address' => 'required|max:255',
+            'password' => 'required|max:255',
         ]);
     }
 }

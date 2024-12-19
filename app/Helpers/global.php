@@ -1,4 +1,6 @@
 <?php
+
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,9 +55,8 @@ function hari($start, $finish){
 function angka($amount){
     return number_format($amount, 0, ',', '.');
 }
-function setImage(Request $request, $data, $collection_name, $req_file_name = 'image'){
-	if($request->hasFile($req_file_name)){
-		$data->clearMediaCollection($collection_name);
-		$data->addMediaFromRequest($req_file_name)->toMediaCollection($collection_name);
-	}
+
+function setRm(){
+	$number = User::whereRole('patient')->count() + 1;
+	return date('Ym').'-'. str_pad($number, 3, '0', STR_PAD_LEFT);
 }
