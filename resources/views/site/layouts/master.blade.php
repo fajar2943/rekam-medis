@@ -53,8 +53,30 @@
   <script src="{{asset('medilab/vendor/purecounter/purecounter_vanilla.js')}}"></script>
   <script src="{{asset('medilab/vendor/swiper/swiper-bundle.min.js')}}"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
   <!-- Main JS File -->
   <script src="{{asset('medilab/js/main.js')}}"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    $('#userProfile').on("click", function(){      
+      Swal.fire({
+        html: `
+          Action to: <br><br>
+          <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="button">My Profile</button>
+            <a href="/logout" class="btn btn-danger">Logout</a>
+          </div>
+        `,
+        showCloseButton: true,
+        showConfirmButton: false,
+        width : 250,
+        position: "top-end"
+      });
+    });
+  </script>
 
   @yield('js')
 

@@ -42,7 +42,7 @@
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>
             @if (authAs())
-                <a class="cta-btn d-none d-sm-block" href="#!">{{auth()->user()->name}}</a>
+                <a class="cta-btn d-none d-sm-block" id="userProfile">{{auth()->user()->name}}</a>
             @else
                 <a class="cta-btn d-none d-sm-block" href="/login">Login</a>
             @endif
