@@ -17,7 +17,8 @@ class AuthController extends Controller
         $request['name'] = $request->email;      
         if(Auth::attempt($request->only('email', 'password'), $request->remember) or Auth::attempt($request->only('name', 'password'), $request->remember)){
             if(authAs('admin')) return redirect('/admin');
-            if(authAs('doctor') or authAs('pharmacist')) return redirect('/workspace');
+            if(authAs('doctor')) return redirect('/workspace');
+            if(authAs('pharmacist')) return redirect('/pharmacy');
             return redirect('/appointment');
         }
         return redirect()->back()->with('Failed', 'Email atau password salah.');

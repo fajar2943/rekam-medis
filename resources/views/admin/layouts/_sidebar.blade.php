@@ -48,6 +48,12 @@
             <p>Medicine</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="/admin/schedule" class="nav-link {{uriActive('admin/schedule')}}">
+            <i class="nav-icon fas fa-calendar"></i>
+            <p>Schedule</p>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

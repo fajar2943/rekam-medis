@@ -66,7 +66,7 @@
         html: `
           Action to: <br><br>
           <div class="d-grid gap-2">
-            <button class="btn btn-primary" type="button">My Profile</button>
+            <a href="/setting" class="btn btn-primary">Settings</a>
             <a href="/logout" class="btn btn-danger">Logout</a>
           </div>
         `,

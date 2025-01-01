@@ -10,9 +10,9 @@ class Poly extends Model
     use Searchable;
 
     protected $guarded = [];
-
-    public function poly_doctors(){
-        return $this->hasMany(PolyDoctor::class);
+    
+    public function schedules(){
+        return $this->hasMany(Schedule::class);
     }
 
     public function toSearchableArray()

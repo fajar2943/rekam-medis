@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('checkup_id')->constrained('checkups');
             $table->foreignId('medicine_id')->constrained('medicines');
-            $table->string('application');
-            $table->integer('qty');
+            $table->string('application')->nullable();
+            $table->integer('qty')->default(1);
             $table->bigInteger('price');
             $table->timestamps();
         });

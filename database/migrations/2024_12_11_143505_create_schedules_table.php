@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('poly_id')->constrained('polies');
             $table->string('day');
             $table->time('start');
             $table->time('finish');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

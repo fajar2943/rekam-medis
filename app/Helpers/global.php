@@ -48,6 +48,9 @@ function tanggal($tanggal){
 function tglwaktu($tanggal){
     return date('d M Y H:i', strtotime($tanggal));
 }
+function waktu($tanggal){
+    return date('H:i', strtotime($tanggal));
+}
 function hari($start, $finish){
     $day = strtotime(date('Y-m-d', strtotime($finish))) - strtotime(date('Y-m-d', strtotime($start)));
     return ($day / 60 / 60 / 24) + 1;

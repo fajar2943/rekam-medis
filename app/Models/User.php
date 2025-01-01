@@ -58,9 +58,6 @@ class User extends Authenticatable
     public function schedules(){
         return $this->hasMany(Schedule::class);
     }
-    public function poly_doctors(){
-        return $this->hasMany(PolyDoctor::class);
-    }
 
     public function toSearchableArray()
     {

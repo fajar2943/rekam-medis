@@ -34,9 +34,11 @@
                     <li><a href="{{isUri('') ? '#doctors' : '/#doctors'}}">Doctors</a></li>
                     <li><a href="{{isUri('') ? '#contact' : '/#contact'}}">Contact</a></li>
                     @if (authAs('patient'))
-                        <li><a href="/appointment" class="active">Appointment</a></li>
-                    @elseif(authAs('doctor') or authAs('pharmacist'))
-                        <li><a href="/workspace" class="active">Workspace</a></li>                        
+                        <li><a href="/appointment" class="{{uriActive('appointment')}}">Appointment</a></li>
+                    @elseif(authAs('doctor'))
+                        <li><a href="/workspace" class="{{uriActive('workspace')}}">Workspace</a></li>                        
+                    @elseif(authAs('pharmacist'))
+                        <li><a href="/pharmacy" class="{{uriActive('pharmacy')}}">Pharmacy</a></li>                        
                     @endif
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>

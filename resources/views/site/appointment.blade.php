@@ -9,63 +9,156 @@
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
                 <h2>Appointment</h2>
-                <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+                <p>informasi riwayat pemeriksaan</p>
             </div><!-- End Section Title -->
 
             <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-                <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
-                    <div class="row">
-                        <div class="col-md-4 form-group">
-                            <input type="text" name="name" class="form-control" id="name"
-                                placeholder="Your Name" required="">
-                        </div>
-                        <div class="col-md-4 form-group mt-3 mt-md-0">
-                            <input type="email" class="form-control" name="email" id="email"
-                                placeholder="Your Email" required="">
-                        </div>
-                        <div class="col-md-4 form-group mt-3 mt-md-0">
-                            <input type="tel" class="form-control" name="phone" id="phone"
-                                placeholder="Your Phone" required="">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="text-center mb-3">
+                                    <h3>Medical Checkup</h3>
+                                </div>
+                                <form action="/appointment" method="post">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="rm">No.Rekam Medis</label>
+                                        <input type="text" name="rm" class="form-control @error('rm') is-invalid @enderror" id="rm" disabled
+                                            placeholder="No.Rekam Medis" required="" value="{{auth()->user()->rm}}">
+                                        @error('rm')
+                                            <div class="invalid-feedback">{{$message}}</div>								
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label for="complaint">Complaint / Keluhan</label>
+                                        <textarea class="form-control @error('complaint') is-invalid @enderror" name="complaint" id="complaint">{{old('complaint')}}</textarea>
+                                        @error('complaint')
+                                            <div class="invalid-feedback">{{$message}}</div>								
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label for="poly_id">Pilih Poli</label>
+                                        <select name="poly_id" id="poly_id" class="form-select">
+                                            @foreach ($polies as $poly)
+                                                <option value="{{$poly->id}}" {{$poly->id == old('poly_id') ? 'selected' : ''}}>{{$poly->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label for="schedule">Pilih Jadwal Periksa</label>
+                                        <select name="schedule" id="schedule" class="form-select @error('schedule') is-invalid @enderror">
+                                            
+                                        </select>
+                                        @error('schedule')
+                                            <div class="invalid-feedback">{{$message}}</div>								
+                                        @enderror
+                                    </div>
+                                    <div class="mt-3">
+                                        <div class="text-center"><button class="btn btn-primary" type="submit">Submit</button></div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4 form-group mt-3">
-                            <input type="datetime-local" name="date" class="form-control datepicker" id="date"
-                                placeholder="Appointment Date" required="">
-                        </div>
-                        <div class="col-md-4 form-group mt-3">
-                            <select name="department" id="department" class="form-select" required="">
-                                <option value="">Select Department</option>
-                                <option value="Department 1">Department 1</option>
-                                <option value="Department 2">Department 2</option>
-                                <option value="Department 3">Department 3</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4 form-group mt-3">
-                            <select name="doctor" id="doctor" class="form-select" required="">
-                                <option value="">Select Doctor</option>
-                                <option value="Doctor 1">Doctor 1</option>
-                                <option value="Doctor 2">Doctor 2</option>
-                                <option value="Doctor 3">Doctor 3</option>
-                            </select>
-                        </div>
-                    </div>
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                {{-- <h3 class="card-title"><button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal">Add User</button></h3> --}}
+                                <div class="card-tools">
+                                    <form action="" method="get" id="formSearch">
+                                      <div class="row">
+                                        <div class="col-md-6">                                          
+                                          <div class="row">
+                                            <div class="col-3">
+                                              <div class="input-group input-group-sm" style="width: 150px;">
+                                                  <select name="statuses" class="form-select" id="statuses">
+                                                      <option value="">All Status</option>
+                                                      <option value="checkup" @if(request('statuses') == 'checkup') selected @endif>Pemeriksaan</option>
+                                                      <option value="waiting_medicine" @if(request('statuses') == 'waiting_medicine') selected @endif>Menunggu Obat</option>
+                                                      <option value="done" @if(request('statuses') == 'done') selected @endif>Selesai</option>
+                                                      <option value="canceled" @if(request('statuses') == 'canceled') selected @endif>Dibatalkan</option>
+                                                  </select>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                          {{-- kosong --}}
+                                        </div>
+                                      </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10px">ID</th>
+                                            <th>Dokter</th>
+                                            <th>Schedule</th>
+                                            <th>Status</th>
+                                            <th>Created At</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($checkups as $checkup)
+                                            <tr>
+                                                <td>{{$checkup->id}}</td>
+                                                <td>{{$checkup->schedule->user->name}}</td>
+                                                <td>{{ $checkup->schedule->hari() }} {{ waktu($checkup->schedule->start) }} - {{ waktu($checkup->schedule->finish) }}</td>
+                                                <td>{{ $checkup->checkup_status() }}</td>
+                                                <td>{{ tglwaktu($checkup->created_at) }}</td>
+                                                <td>
+                                                    <a href="/checkup/{{$checkup->id}}" class="btn btn-sm btn-warning mb-2">Detail</a>
+                                                </td>
+                                            </tr>
 
-                    <div class="form-group mt-3">
-                        <textarea class="form-control" name="message" rows="5" placeholder="Message (Optional)"></textarea>
-                    </div>
-                    <div class="mt-3">
-                        <div class="loading">Loading</div>
-                        <div class="error-message"></div>
-                        <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
-                        <div class="text-center"><button type="submit">Make an Appointment</button></div>
-                    </div>
-                </form>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer clearfix">
+                                {{ $checkups->links('admin.layouts.paginate') }}
+                            </div>
 
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </section><!-- /Appointment Section -->
 
     </main>
+@endsection
+
+@section('js')
+<script>
+    schedules();
+    $('#poly_id').on('change', function(){
+        schedules();
+    })
+
+    $('#statuses').on('change', function(){
+        $('#formSearch').submit();
+    })
+
+    function schedules(){
+        const poly_id = $('#poly_id').val();
+        const schedule_id = `{{old('schedule')}}`
+        $('#schedule').empty();
+        $('#schedule').append(`<option value="">-- PILIH JADWAL --</option>`);
+        $.get("/api/schedules/" + poly_id, function(data, status){
+            data.forEach(schedule => {
+                $('#schedule').append(`<option value="${schedule.id}" ${schedule.id == schedule_id ? 'selected' : ''}>Dokter ${schedule.name} | ${schedule.day} | ${schedule.start} - ${schedule.finish}</option>`);
+            });
+            
+        });
+        
+    }
+</script>
 @endsection
