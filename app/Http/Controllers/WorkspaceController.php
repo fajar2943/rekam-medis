@@ -29,6 +29,9 @@ class WorkspaceController extends Controller
             'finish' => 'required|max:255',
         ]);
         $request['user_id'] = Auth::user()->id;
+        if(Schedule::whereUserId(Auth::user()->id)->where('day', $request->day)->count()){
+            return back()->with('failed', 'Mohon maaf, anda tidak boleh membuat jadwal di hari yang sama.')->withInput();
+        }
         Schedule::create($request->only('user_id', 'poly_id', 'day', 'start', 'finish'));
         return back()->with('success', 'Data created.');
     }

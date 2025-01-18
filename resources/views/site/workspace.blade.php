@@ -17,6 +17,9 @@
                 @if (session('success'))
                     <div role="alert" class="alert alert-success">{{ session('success') }}</div>
                 @endif
+                @if (session('failed'))
+                    <div role="alert" class="alert alert-danger">{{ session('failed') }}</div>
+                @endif
 
                 <div class="row">
                   <div class="col-md-4">
